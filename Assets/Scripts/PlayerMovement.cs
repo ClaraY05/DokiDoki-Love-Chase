@@ -50,16 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        RaycastHit hitInfo;
-        bool grounded = 
-            Physics.BoxCast(boxCollider.bounds.center- new Vector3(0, boxCollider.bounds.extents.y, 0), 
-                            boxCollider.bounds.extents, 
-                            Vector3.down, 
-                            out hitInfo,
-                            Quaternion.identity,
-                            0.2f, 
-                            groundLayer);
+        float distanceToGround = 0.1f; // small buffer
+        Vector3 origin = boxCollider.bounds.center;
+        float halfHeight = boxCollider.bounds.extents.y;
 
+        bool grounded = Physics.Raycast(origin, Vector3.down, halfHeight + distanceToGround, groundLayer);
         Debug.Log("IsGrounded: " + grounded);
         return grounded;
     }
