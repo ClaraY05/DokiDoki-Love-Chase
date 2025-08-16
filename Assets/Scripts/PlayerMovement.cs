@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 origin = boxCollider.bounds.center;
         float halfHeight = boxCollider.bounds.extents.y;
 
-        bool onWall = Physics.Raycast(origin, new Vector3(transform.localScale.x,0,0), halfHeight + distanceToGround, groundLayer);
+        bool onWall = Physics.Raycast(origin, new Vector3(transform.localScale.x,0,0), halfHeight + distanceToGround, wallLayer);
         Debug.Log("IsOnWall: " + onWall);
         return onWall;
     }
