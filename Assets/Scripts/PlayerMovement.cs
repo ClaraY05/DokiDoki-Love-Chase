@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded())
         {
-            body.velocity = new Vector3(body.velocity.x, speed * 2, body.velocity.z);
+            body.velocity = new Vector3(body.velocity.x, 8, body.velocity.z);
             //animate.SetTrigger("jump");
         }
         else if (onWall() && !isGrounded()) {
