@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private LayerMask groundLayer;
     private Animator animate;
     private Rigidbody body;
-    private bool isGrounded;
+    private BoxCollider boxCollider;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
         //animate = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && isGrounded())
             Jump();
 
         //sets animation parameters
@@ -41,14 +43,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        body.velocity = new Vector3(body.velocity.x, speed, body.velocity.z);
+        body.velocity = new Vector3(body.velocity.x, speed*2, body.velocity.z);
         //animate.SetTrigger("jump");
-        isGrounded = false;
+
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private bool isGrounded()
     {
-        if (collision.gameObject.tag == "Ground")
-            isGrounded = true;
+        RaycastHit hitInfo;
+        bool grounded = 
+            Physics.BoxCast(boxCollider.bounds.center- new Vector3(0, boxCollider.bounds.extents.y, 0), 
+                            boxCollider.bounds.extents, 
+                            Vector3.down, 
+                            out hitInfo,
+                            Quaternion.identity,
+                            0.2f, 
+                            groundLayer);
+
+        Debug.Log("IsGrounded: " + grounded);
+        return grounded;
     }
 }
