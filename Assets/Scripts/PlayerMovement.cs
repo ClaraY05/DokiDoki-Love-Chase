@@ -24,17 +24,18 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         float horizontalIn = Input.GetAxis("Horizontal");
-        body.velocity = new Vector3(horizontalIn * speed, body.velocity.y, body.velocity.z);
 
         if (horizontalIn > 0.01f)
         {
             // Face right (world forward)
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            body.velocity = new Vector3(horizontalIn * speed, body.velocity.y, body.velocity.z);
         }
         else if (horizontalIn < -0.01f)
         {
             // Face left (rotate 180 on Y)
             transform.rotation = Quaternion.Euler(0, 180, 0);
+            body.velocity = new Vector3(-1 * horizontalIn * speed, body.velocity.y, body.velocity.z);
         }
 
         if (Input.GetKey(KeyCode.Space) && isGrounded())
