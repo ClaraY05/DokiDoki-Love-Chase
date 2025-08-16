@@ -60,7 +60,7 @@ public class ChainActions : MonoBehaviour
 
             // Move player toward grapple point
             Vector3 direction = (grapplePoint - transform.position).normalized;
-            rb.velocity = direction * pullSpeed;
+            rb.velocity = Vector3.Lerp(rb.velocity, direction * pullSpeed, Time.deltaTime * 2f);
 
             // Stop pulling if very close
             if (Vector3.Distance(transform.position, grapplePoint) < 1f)

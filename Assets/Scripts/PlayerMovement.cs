@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         float horizontalIn = Input.GetAxis("Horizontal");
-
+        /*
         if (horizontalIn > 0.01f)
         {
             // Face right (world forward)
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
             // Face left (rotate 180 on Y)
             transform.rotation = Quaternion.Euler(0, 180, 0);
             body.velocity = new Vector3(-1 * horizontalIn * speed, body.velocity.y, body.velocity.z);
-        }
+        }*/
 
         if (Input.GetKey(KeyCode.Space) && isGrounded())
             Jump();
